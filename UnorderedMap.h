@@ -5,5 +5,10 @@ class UnorderedMap
 {
 private:
 public:
-	UnorderedMap() {};
+	UnorderedMap();
 };
+
+template<class _KeyType,
+	class _DataType,
+	class _Hash>
+UnorderedMap<_KeyType, _DataType, _Hash>::UnorderedMap() {}

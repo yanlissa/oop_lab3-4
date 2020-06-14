@@ -4,4 +4,4 @@ all: lab3-4
 	g++ -c $< -o $@
 
 lab3-4: lab3-4.o UnorderedMap.o
-	g++ -o lab3-4 UnorderedMap.o lab3-4.o
+	g++ -o lab3-4 lab3-4.o

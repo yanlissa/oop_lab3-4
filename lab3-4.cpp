@@ -5,12 +5,15 @@ using namespace std;
 
 int main()
 {
-	UnorderedMap<int, int> map;
-	hash<string> hasher;
-	cout << "a: " << hasher("a") % 32 << "\n";
-	cout << "b: " << hasher("b") % 32 << "\n";
-	cout << "ab: " << hasher("ab") % 32 << "\n";
-	cout << "hash: " << hasher("hash") % 32 << "\n";
-	cout << "table: " << hasher("table") % 32 << "\n";
+	UnorderedMap<string, int> map;
+
+	map.insert({"a", 1});
+	map.insert({"b", 2});
+	map.insert({"ab", 3});
+	map.insert({"hash", 4});
+	map.insert({"table", 5});
+
+	map.print();
+
 	return 0;
 }

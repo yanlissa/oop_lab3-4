@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 #include <functional>
 #include "MapNode.h"
 
@@ -15,12 +17,14 @@ public:
 private:
 	Hash m_hash;
 	std::size_t m_size;
-	node_type **m_table;
+	std::size_t m_count = 0;
+	node_base **m_table;
+	node_base m_before_begin;
 public:
 	UnorderedMap()
 		:m_hash(Hash()), m_size(256)
 	{
-		m_table = new node_type *[m_size];
+		m_table = new node_base *[m_size];
 	}
 
 	~UnorderedMap()
@@ -28,8 +32,12 @@ public:
 		delete m_table;
 	}
 
-	node_type *insert()
+	node_type *insert(value_type &&v)
 	{
+		std::cout << "<" << v.first << ": " << v.second << "> " << m_hash(v.first) << "\n";
 		return nullptr;
 	}
+
+	void print()
+	{}
 };

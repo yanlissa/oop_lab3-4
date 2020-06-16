@@ -39,5 +39,16 @@ public:
 	}
 
 	void print()
-	{}
+	{
+		node_base *n = m_before_begin.m_next;
+		if (!n) {
+			return;
+		}
+
+		node_type *p = static_cast<node_type*>(n);
+		while (p) {
+			value_type *v = p->m_value;
+			std::cout << "<" << v->first << ": " << v->second << "> " << p->m_hash << "\n";
+		}
+	}
 };

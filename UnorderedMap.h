@@ -1,6 +1,10 @@
+#pragma once
+
+#include <functional>
+
 template<class _KeyType,
 	class _DataType,
-	class _Hash>
+	class _Hash = std::hash<_KeyType>>
 class UnorderedMap
 {
 private:

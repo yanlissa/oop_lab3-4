@@ -8,3 +8,6 @@ lab3-4: lab3-4.o
 
 clean:
 	rm *.o
+
+test: all
+	./lab3-4

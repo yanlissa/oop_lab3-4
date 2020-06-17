@@ -20,6 +20,8 @@ int main()
 	cout << (*map.begin()).first << ": " << (*map.begin()).second << ">\n";
 	cout << "end is null: ";
 	cout << (map.end() == MapNodeIterator<std::pair<string, int>>(nullptr)) << endl;
+	map["a"] = 6;
+	map["c"] = 7;
 
 	map.print();
 

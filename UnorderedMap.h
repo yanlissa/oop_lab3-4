@@ -27,7 +27,7 @@ private:
 		return hash % m_size;
 	}
 
-	node_type* find_node(std::size_t t, const Key &k)
+	node_type* find_node(const Key &k, std::size_t t)
 	{
 		node_base *p = m_table[t];
 		if (!p) {
@@ -83,15 +83,31 @@ public:
 		Key k = v.first;
 		std::size_t h = m_hash(k);
 		std::size_t t = table_index(h);
-		std::cout << "<" << k << ": " << v.second << "> " << h << ", " << t << "\n";
 
-		node_type *n = find_node(t, k);
+		node_type *n = find_node(k, t);
 		if (n) {
 			return n;
 		}
 
 		n = new node_type(v, h);
 		return insert_at_beginning(t, n);
+	}
+
+	T& operator[](const Key& k)
+	{
+		std::size_t h = m_hash(k);
+		std::size_t t = table_index(h);
+
+		node_type *n = find_node(k, t);
+		if (n) {
+			return n->m_value.second;
+		}
+
+		value_type v(std::piecewise_construct,
+				std::tuple<const Key&>(k),
+				std::tuple<>());
+		n = new node_type(v, h);
+		return insert_at_beginning(t, n)->m_value.second;
 	}
 
 	iterator begin()

@@ -16,6 +16,7 @@ int main()
 	map.insert({"table", 5});
 	cout << (*map.insert({"a", 2})).second << endl;
 	cout << (*map.begin()).first << ": " << (*map.begin()).second << endl;
+	cout << (map.end() == MapNodeIterator<std::pair<string, int>>(nullptr)) << endl;
 
 	map.print();
 

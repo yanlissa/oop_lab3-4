@@ -99,6 +99,11 @@ public:
 		return first_node();
 	}
 
+	iterator end()
+	{
+		return nullptr;
+	}
+
 	void print()
 	{
 		node_base *p = m_before_begin.m_next;

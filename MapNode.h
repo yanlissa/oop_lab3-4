@@ -47,6 +47,11 @@ struct MapNodeIterator
 	{
 		return m_ptr->m_value;
 	}
+
+	Value* operator->() const
+	{
+		return &(m_ptr->m_value);
+	}
 };
 
 template<class Value>

@@ -78,6 +78,14 @@ public:
 		delete m_table;
 	}
 
+	iterator find(const Key& k)
+	{
+		std::size_t h = m_hash(k);
+		std::size_t t = table_index(h);
+
+		return find_node(k, t);
+	}
+
 	iterator insert(value_type &&v)
 	{
 		Key k = v.first;
@@ -110,6 +118,19 @@ public:
 		return insert_at_beginning(t, n)->m_value.second;
 	}
 
+	T& at(const Key& k)
+	{
+		std::size_t h = m_hash(k);
+		std::size_t t = table_index(h);
+
+		node_type *n = find_node(k, t);
+		if (!n) {
+			throw std::out_of_range("UnorderedMap::at");
+		}
+
+		return n->m_value.second;
+	}
+
 	iterator begin()
 	{
 		return first_node();
@@ -120,11 +141,15 @@ public:
 		return nullptr;
 	}
 
+	bool empty()
+	{
+		return m_count == 0;
+	}
 	void print()
 	{
 		node_base *p = m_before_begin.m_next;
 		if (!p) {
-			std::cout << "map is empty\n";
+			std::cout << "UnorderedMap is empty\n";
 			return;
 		}
 

@@ -84,6 +84,27 @@ private:
 	{
 		return (float) m_size / m_table_size > m_max_load_factor;
 	}
+
+	void copy(const UnorderedMap& m)
+	{
+		m_table_size = m.m_table_size;
+		m_table = new node_base *[m_table_size]();
+
+		for(iterator i = m.begin(); i != m.end(); ++i) {
+			insert(*i);
+		}
+	}
+
+	void move(UnorderedMap&& m)
+	{
+		m_table_size = m.m_table_size;
+		m_max_load_factor = m.m_max_load_factor;
+		m_size = m.m_size;
+		m_table = m.m_table;
+		m_before_begin = m.m_before_begin;
+		m.m_table = nullptr;
+		m.m_before_begin.m_next = nullptr;
+	}
 public:
 	UnorderedMap()
 		:m_hash(Hash()), m_table_size(4)
@@ -120,29 +141,32 @@ public:
 
 	UnorderedMap(const UnorderedMap& m)
 	{
-		m_table_size = m.m_table_size;
-		m_table = new node_base *[m_table_size]();
-
-		for(iterator i = m.begin(); i != m.end(); ++i) {
-			insert(*i);
-		}
+		copy(m);
 	}
 
 	UnorderedMap(UnorderedMap&& m)
 	{
-		m_table_size = m.m_table_size;
-		m_max_load_factor = m.m_max_load_factor;
-		m_size = m.m_size;
-		m_table = m.m_table;
-		m_before_begin = m.m_before_begin;
-		m.m_table = nullptr;
-		m.m_before_begin.m_next = nullptr;
+		move(std::move(m));
 	}
 
 	~UnorderedMap()
 	{
 		clear();
 		delete m_table;
+	}
+
+	UnorderedMap& operator=(const UnorderedMap& m)
+	{
+		clear();
+		delete m_table;
+		copy(m);
+	}
+
+	UnorderedMap& operator=(UnorderedMap&& m)
+	{
+		clear();
+		delete m_table;
+		move(std::move(m));
 	}
 
 	iterator find(const Key& k)

@@ -75,5 +75,13 @@ int main()
 	cout << "map2.size(): " << map2.size() << endl;
 	map2.print();
 
+	UnorderedMap<string, int> map3({{"a", 1}, {"b", 2}, {"c", 3}});
+	cout << "map3.size(): " << map3.size() << endl;
+	map3.print();
+
+	UnorderedMap<string, int> map4(map2);
+	cout << "map4.size(): " << map4.size() << endl;
+	map4.print();
+
 	return 0;
 }

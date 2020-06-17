@@ -66,7 +66,7 @@ private:
 		return n;
 	}
 
-	node_type* first_node()
+	node_type* first_node() const
 	{
 		return static_cast<node_type*>(m_before_begin.m_next);
 	}
@@ -104,6 +104,26 @@ public:
 		m_table = new node_base *[m_table_size]();
 
 		for(InputIt i = first; i != last; i++) {
+			insert(*i);
+		}
+	}
+
+	UnorderedMap(std::initializer_list<value_type> init, std::size_t table_size = 4)
+		:m_hash(Hash()), m_table_size(table_size)
+	{
+		m_table = new node_base *[m_table_size]();
+
+		for(auto it = std::begin(init); it != std::end(init); ++it) {
+			insert(*it);
+		}
+	}
+
+	UnorderedMap(const UnorderedMap& m)
+	{
+		m_table_size = m.m_table_size;
+		m_table = new node_base *[m_table_size]();
+
+		for(iterator i = m.begin(); i != m.end(); ++i) {
 			insert(*i);
 		}
 	}
@@ -167,22 +187,22 @@ public:
 		return n->m_value.second;
 	}
 
-	iterator begin()
+	iterator begin() const
 	{
 		return first_node();
 	}
 
-	iterator end()
+	iterator end() const
 	{
 		return nullptr;
 	}
 
-	bool empty()
+	bool empty() const
 	{
 		return m_size == 0;
 	}
 
-	std::size_t size()
+	std::size_t size() const
 	{
 		return m_size;
 	}

@@ -1,5 +1,9 @@
 #include <iostream>
+#include <iomanip>
 #include <utility>
+#include <vector>
+
+#include "Algorithm.h"
 #include "UnorderedMap.h"
 
 using namespace std;
@@ -8,6 +12,11 @@ using namespace std;
 UnorderedMap<string, int> generate_map()
 {
 	return UnorderedMap<string, int>({{"a", 1}, {"b", 2}, {"c", 3}});
+}
+
+void print(int i)
+{
+        std::cout << std::setw(3) << i;
 }
 
 int main()
@@ -88,6 +97,16 @@ int main()
 	UnorderedMap<string, int> map4(map2);
 	cout << "map4.size(): " << map4.size() << endl;
 	map4.print();
+
+	std::vector<int> v({ 12, 11, 13, 5, 6, 7, 10, 11, 5, 12, 1, 14, 17 });
+
+        forEach(v.begin(), v.end(), print);
+        std::cout << std::endl;
+
+        Sort(v.begin(), v.end());
+
+        forEach(v.begin(), v.end(), print);
+        std::cout << std::endl;
 
 	return 0;
 }

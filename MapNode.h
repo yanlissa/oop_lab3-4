@@ -13,8 +13,12 @@ struct MapNodeBase
 template<class Value>
 struct MapNode : MapNodeBase
 {
-	Value *m_value;
+	Value m_value;
 	std::size_t m_hash;
+
+	MapNode(Value v, std::size_t h)
+		:m_value(v), m_hash(h)
+	{}
 
 	MapNode* next() const
 	{

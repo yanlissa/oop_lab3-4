@@ -100,7 +100,9 @@ int main()
 
 	std::vector<int> v({ 12, 11, 13, 5, 6, 7, 10, 11, 5, 12, 1, 14, 17 });
 
-        forEach(v.begin(), v.end(), print);
+        forEach(v.begin(), v.end(), [](int i){
+			std::cout << std::setw(3) << i;
+	});
         std::cout << std::endl;
 
         Sort(v.begin(), v.end());

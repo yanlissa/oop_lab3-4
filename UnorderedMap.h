@@ -17,14 +17,14 @@ public:
 	using iterator = MapNodeIterator<value_type>;
 private:
 	Hash m_hash;
-	std::size_t m_size;
+	std::size_t m_table_size;
 	std::size_t m_count = 0;
 	node_base **m_table;
 	node_base m_before_begin;
 private:
 	std::size_t table_index(std::size_t hash)
 	{
-		return hash % m_size;
+		return hash % m_table_size;
 	}
 
 	node_type* find_node(const Key &k, std::size_t t)
@@ -68,9 +68,9 @@ private:
 	}
 public:
 	UnorderedMap()
-		:m_hash(Hash()), m_size(4)
+		:m_hash(Hash()), m_table_size(4)
 	{
-		m_table = new node_base *[m_size];
+		m_table = new node_base *[m_table_size];
 	}
 
 	~UnorderedMap()

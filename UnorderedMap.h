@@ -187,6 +187,20 @@ public:
 		return next;
 	}
 
+	std::size_t erase(const Key& k)
+	{
+		std::size_t h = m_hash(k);
+		std::size_t t = table_index(h);
+
+		node_type *n = find_node(k, t);
+		if (!n) {
+			return 0;
+		}
+
+		erase(n);
+		return 1;
+	}
+
 	void clear()
 	{
 		while (m_before_begin.m_next) {

@@ -48,6 +48,8 @@ int main()
 		cout << "(std::out_of_range exception at ";
 		cout << oor.what() << ")\n";
 	}
+	map.erase("c");
+	map.erase("x");
 	map.print();
 	cout << "map.size(): " << map.size() << endl;
 

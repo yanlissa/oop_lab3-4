@@ -91,6 +91,12 @@ public:
 		m_table = new node_base *[m_table_size];
 	}
 
+	UnorderedMap(std::size_t table_size)
+		:m_hash(Hash()), m_table_size(table_size)
+	{
+		m_table = new node_base *[m_table_size];
+	}
+
 	~UnorderedMap()
 	{
 		clear();

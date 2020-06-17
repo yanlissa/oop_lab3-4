@@ -59,16 +59,16 @@ int main()
 	cout << "map.size(): " << map.size() << endl;
 	cout << "map is empty: " << map.empty() << endl;
 
+	UnorderedMap<string, int> map1(2);
+
 	for (int i = 1; i<=9; i++) {
 		char key[2];
 		key[0] = 'a' + i - 1;
 		key[1] = 0;
-		pair<string,int> p(std::piecewise_construct,
-					std::forward_as_tuple(key),
-					std::forward_as_tuple(i));
-		map.insert(p);
+		pair<string,int> p(key, i);
+		map1.insert(p);
 	}
-	map.print();
+	map1.print();
 
 	return 0;
 }

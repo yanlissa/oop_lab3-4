@@ -68,6 +68,7 @@ int main()
 					std::forward_as_tuple(i));
 		map.insert(p);
 	}
+	map.print();
 
 	return 0;
 }

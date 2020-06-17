@@ -111,14 +111,12 @@ public:
 		std::size_t h = m_hash(k);
 		std::size_t t = table_index(h);
 
-		std::cout << "<" << k << ": " << v.second << "> " << h << ", " << t;
 		node_type *n = find_node(k, t);
 		if (n) {
 			return n;
 		}
 
 		n = new node_type(v, h);
-		std::cout <<  " done\n";
 		return insert_at_beginning(t, n);
 	}
 
@@ -238,7 +236,23 @@ public:
 
 	void reserve(std::size_t size)
 	{
-		std::cout << "rehashing...\n";
+		std::size_t new_table_size = (float) size / m_max_load_factor;
+		if (new_table_size == m_table_size) {
+			return;
+		}
+		m_table_size = new_table_size;
+		m_size = 0;
+		node_base* p = m_before_begin.m_next;
+		delete m_table;
+		m_before_begin.m_next = nullptr;
+		m_table = new node_base *[m_table_size];
+		while (p) {
+			node_type *n = static_cast<node_type*>(p);
+			p = p->m_next;
+			std::size_t t = table_index(n->m_hash);
+			n->m_next = nullptr;
+			insert_at_beginning(t, n);
+		}
 	}
 
 	void print()

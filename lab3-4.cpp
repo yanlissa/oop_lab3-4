@@ -15,6 +15,7 @@ int main()
 	map.insert({"hash", 4});
 	map.insert({"table", 5});
 	cout << (*map.insert({"a", 2})).second << endl;
+	cout << (*map.begin()).first << ": " << (*map.begin()).second << endl;
 
 	map.print();
 

@@ -61,6 +61,11 @@ private:
 		m_count++;
 		return n;
 	}
+
+	node_type* first_node()
+	{
+		return static_cast<node_type*>(m_before_begin.m_next);
+	}
 public:
 	UnorderedMap()
 		:m_hash(Hash()), m_size(4)
@@ -87,6 +92,11 @@ public:
 
 		n = new node_type(v, h);
 		return insert_at_beginning(t, n);
+	}
+
+	iterator begin()
+	{
+		return first_node();
 	}
 
 	void print()

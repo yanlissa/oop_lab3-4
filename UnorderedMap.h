@@ -14,6 +14,7 @@ public:
 	using value_type = std::pair<Key, T>;
 	using node_base = MapNodeBase;
 	using node_type = MapNode<value_type>;
+	using iterator = MapNodeIterator<value_type>;
 private:
 	Hash m_hash;
 	std::size_t m_size;
@@ -72,7 +73,7 @@ public:
 		delete m_table;
 	}
 
-	node_type *insert(value_type &&v)
+	iterator insert(value_type &&v)
 	{
 		Key k = v.first;
 		std::size_t h = m_hash(k);
@@ -90,16 +91,17 @@ public:
 
 	void print()
 	{
-		node_base *n = m_before_begin.m_next;
-		if (!n) {
+		node_base *p = m_before_begin.m_next;
+		if (!p) {
+			std::cout << "map is empty\n";
 			return;
 		}
 
-		node_type *p = static_cast<node_type*>(n);
-		while (p) {
-			value_type *v = &(p->m_value);
-			std::cout << "<" << v->first << ": " << v->second << "> " << p->m_hash << "\n";
-			p = p->next();
+		node_type *n = static_cast<node_type*>(p);
+		while (n) {
+			value_type *v = &(n->m_value);
+			std::cout << "<" << v->first << ": " << v->second << "> " << n->m_hash << "\n";
+			n = n->next();
 		}
 	}
 };

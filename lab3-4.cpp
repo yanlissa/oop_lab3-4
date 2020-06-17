@@ -8,10 +8,12 @@ int main()
 	UnorderedMap<string, int> map;
 
 	map.print();
+	cout << "map.size(): " << map.size() << endl;
 	cout << "map is empty: " << map.empty() << endl;
 
 	map.insert({"a", 1});
 	map.print();
+	cout << "map.size(): " << map.size() << endl;
 	cout << "map is empty: " << map.empty() << endl;
 
 	map.insert({"b", 2});
@@ -37,6 +39,7 @@ int main()
 		cout << oor.what() << ")\n";
 	}
 	map.print();
+	cout << "map.size(): " << map.size() << endl;
 
 	return 0;
 }

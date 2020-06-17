@@ -18,7 +18,7 @@ public:
 private:
 	Hash m_hash;
 	std::size_t m_table_size;
-	std::size_t m_count = 0;
+	std::size_t m_size = 0;
 	node_base **m_table;
 	node_base m_before_begin;
 private:
@@ -58,7 +58,7 @@ private:
 			}
 			m_table[t] = &m_before_begin;
 		}
-		m_count++;
+		m_size++;
 		return n;
 	}
 
@@ -143,8 +143,14 @@ public:
 
 	bool empty()
 	{
-		return m_count == 0;
+		return m_size == 0;
 	}
+
+	std::size_t size()
+	{
+		return m_size;
+	}
+
 	void print()
 	{
 		node_base *p = m_before_begin.m_next;

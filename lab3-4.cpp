@@ -4,6 +4,12 @@
 
 using namespace std;
 
+
+UnorderedMap<string, int> generate_map()
+{
+	return UnorderedMap<string, int>({{"a", 1}, {"b", 2}, {"c", 3}});
+}
+
 int main()
 {
 	UnorderedMap<string, int> map;
@@ -75,7 +81,7 @@ int main()
 	cout << "map2.size(): " << map2.size() << endl;
 	map2.print();
 
-	UnorderedMap<string, int> map3({{"a", 1}, {"b", 2}, {"c", 3}});
+	UnorderedMap<string, int> map3 = generate_map();
 	cout << "map3.size(): " << map3.size() << endl;
 	map3.print();
 

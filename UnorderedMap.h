@@ -128,6 +128,17 @@ public:
 		}
 	}
 
+	UnorderedMap(UnorderedMap&& m)
+	{
+		m_table_size = m.m_table_size;
+		m_max_load_factor = m.m_max_load_factor;
+		m_size = m.m_size;
+		m_table = m.m_table;
+		m_before_begin = m.m_before_begin;
+		m.m_table = nullptr;
+		m.m_before_begin.m_next = nullptr;
+	}
+
 	~UnorderedMap()
 	{
 		clear();

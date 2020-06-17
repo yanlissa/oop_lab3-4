@@ -70,5 +70,10 @@ int main()
 	}
 	map1.print();
 
+	cout << "constructing from iterators: " << endl;
+	UnorderedMap<string, int> map2(map1.begin(), map1.end());
+	cout << "map2.size(): " << map2.size() << endl;
+	map2.print();
+
 	return 0;
 }

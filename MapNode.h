@@ -38,6 +38,10 @@ struct MapNodeIterator
 		:m_ptr(ptr)
 	{}
 
+	MapNodeIterator(const MapNodeIterator& i)
+		:m_ptr(i.m_ptr)
+	{}
+
 	void next()
 	{
 		m_ptr = m_ptr->next();
@@ -52,6 +56,19 @@ struct MapNodeIterator
 	{
 		return &(m_ptr->m_value);
 	}
+
+	MapNodeIterator& operator++()
+	{
+		next();
+		return *this;
+	}
+
+	MapNodeIterator operator++(int)
+	{
+		MapNodeIterator tmp(*this);
+		next();
+		return tmp;
+	}
 };
 
 template<class Value>
@@ -63,5 +80,5 @@ bool operator==(const MapNodeIterator<Value>& x, const MapNodeIterator<Value>& y
 template<class Value>
 bool operator!=(const MapNodeIterator<Value>& x, const MapNodeIterator<Value>& y)
 {
-	return x.m_ptr == y.m_ptr;
+	return x.m_ptr != y.m_ptr;
 }

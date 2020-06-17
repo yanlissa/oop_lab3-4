@@ -88,13 +88,24 @@ public:
 	UnorderedMap()
 		:m_hash(Hash()), m_table_size(4)
 	{
-		m_table = new node_base *[m_table_size];
+		m_table = new node_base *[m_table_size]();
 	}
 
 	UnorderedMap(std::size_t table_size)
 		:m_hash(Hash()), m_table_size(table_size)
 	{
-		m_table = new node_base *[m_table_size];
+		m_table = new node_base *[m_table_size]();
+	}
+
+	template<class InputIt>
+	UnorderedMap(InputIt first, InputIt last, std::size_t table_size = 4)
+		:m_hash(Hash()), m_table_size(table_size)
+	{
+		m_table = new node_base *[m_table_size]();
+
+		for(InputIt i = first; i != last; i++) {
+			insert(*i);
+		}
 	}
 
 	~UnorderedMap()

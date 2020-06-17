@@ -19,6 +19,7 @@ private:
 	Hash m_hash;
 	std::size_t m_table_size;
 	std::size_t m_size = 0;
+	float m_max_load_factor = 2.0;
 	node_base **m_table;
 	node_base m_before_begin;
 private:
@@ -59,6 +60,9 @@ private:
 			m_table[t] = &m_before_begin;
 		}
 		m_size++;
+		if (overload()) {
+			reserve(m_table_size * 2 * m_max_load_factor);
+		}
 		return n;
 	}
 
@@ -74,6 +78,11 @@ private:
 			p = p->m_next;
 		}
 		return p;
+	}
+
+	bool overload()
+	{
+		return (float) m_size / m_table_size > m_max_load_factor;
 	}
 public:
 	UnorderedMap()
@@ -96,18 +105,20 @@ public:
 		return find_node(k, t);
 	}
 
-	iterator insert(value_type &&v)
+	iterator insert(value_type v)
 	{
 		Key k = v.first;
 		std::size_t h = m_hash(k);
 		std::size_t t = table_index(h);
 
+		std::cout << "<" << k << ": " << v.second << "> " << h << ", " << t;
 		node_type *n = find_node(k, t);
 		if (n) {
 			return n;
 		}
 
 		n = new node_type(v, h);
+		std::cout <<  " done\n";
 		return insert_at_beginning(t, n);
 	}
 
@@ -209,6 +220,25 @@ public:
 			m_size--;
 			delete n;
 		}
+		m_before_begin.m_next = nullptr;
+		for (std::size_t i = 0; i < m_table_size; i++) {
+			m_table[i] = nullptr;
+		}
+	}
+
+	void max_load_factor(float mlf)
+	{
+		m_max_load_factor = mlf;
+	}
+
+	float max_load_factor()
+	{
+		return m_max_load_factor;
+	}
+
+	void reserve(std::size_t size)
+	{
+		std::cout << "rehashing...\n";
 	}
 
 	void print()

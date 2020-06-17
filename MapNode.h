@@ -47,6 +47,11 @@ struct MapNodeIterator
 		m_ptr = m_ptr->next();
 	}
 
+	MapNodeIterator& operator=(const MapNodeIterator& i)
+	{
+		return m_ptr = i->m_ptr;
+	}
+
 	Value& operator*() const
 	{
 		return m_ptr->m_value;

@@ -75,6 +75,7 @@ public:
 
 	~UnorderedMap()
 	{
+		clear();
 		delete m_table;
 	}
 
@@ -149,6 +150,16 @@ public:
 	std::size_t size()
 	{
 		return m_size;
+	}
+
+	void clear()
+	{
+		while (m_before_begin.m_next) {
+			node_type *n = static_cast<node_type*>(m_before_begin.m_next);
+			m_before_begin.m_next = m_before_begin.m_next->m_next;
+			m_size--;
+			delete n;
+		}
 	}
 
 	void print()

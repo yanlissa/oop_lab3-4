@@ -41,5 +41,10 @@ int main()
 	map.print();
 	cout << "map.size(): " << map.size() << endl;
 
+	map.clear();
+	map.print();
+	cout << "map.size(): " << map.size() << endl;
+	cout << "map is empty: " << map.empty() << endl;
+
 	return 0;
 }

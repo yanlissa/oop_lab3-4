@@ -41,6 +41,16 @@ int main()
 	map.print();
 	cout << "map.size(): " << map.size() << endl;
 
+	try {
+		map.erase(found);
+		map.erase(map.end());
+	} catch (const std::out_of_range& oor) {
+		cout << "(std::out_of_range exception at ";
+		cout << oor.what() << ")\n";
+	}
+	map.print();
+	cout << "map.size(): " << map.size() << endl;
+
 	map.clear();
 	map.print();
 	cout << "map.size(): " << map.size() << endl;

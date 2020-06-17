@@ -66,6 +66,15 @@ private:
 	{
 		return static_cast<node_type*>(m_before_begin.m_next);
 	}
+
+	node_base* find_parent(node_type* n, std::size_t t)
+	{
+		node_base* p = m_table[t];
+		while (p->m_next != n) {
+			p = p->m_next;
+		}
+		return p;
+	}
 public:
 	UnorderedMap()
 		:m_hash(Hash()), m_table_size(4)
@@ -150,6 +159,32 @@ public:
 	std::size_t size()
 	{
 		return m_size;
+	}
+
+	iterator erase(iterator i)
+	{
+		node_type* n = i.m_ptr;
+		if (!n) {
+			throw std::out_of_range("UnorderedMap::erase(it)");
+		}
+		std::size_t t = table_index(n->m_hash);
+		node_base* p = find_parent(n, t);
+		bool is_first = p == m_table[t];
+		node_type* next = n->next();
+		if (next) {
+			std::size_t next_t = table_index(next->m_hash);
+			if (t != next_t) {
+				m_table[next_t] = p;
+			}
+		} else {
+			if (is_first) {
+				m_table[t] = nullptr;
+			}
+		}
+		p->m_next = next;
+		delete n;
+		m_size--;
+		return next;
 	}
 
 	void clear()

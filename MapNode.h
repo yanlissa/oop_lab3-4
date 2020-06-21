@@ -16,10 +16,12 @@ struct MapNode : MapNodeBase
 	Value m_value;
 	std::size_t m_hash;
 
-    // ЖЕЛАТЕЛЬНО ДОБАВИТЬ КОНСТРУКТОР С ПЕРЕНОСОМ ДЛЯ Value
-
-	MapNode(Value v, std::size_t h) // ПЕРЕДАВТЬ V НУЖНО ПО КОНСТАНТНОЙ ССЫЛКЕ
+	MapNode(const Value v, std::size_t h)
 		:m_value(v), m_hash(h)
+	{}
+
+	MapNode(Value&& v, std::size_t h)
+		:m_value(std::move(v)), m_hash(h)
 	{}
 
 	MapNode* next() const

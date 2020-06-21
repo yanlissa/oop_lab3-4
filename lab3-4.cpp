@@ -90,7 +90,8 @@ int main()
 	}
 	map1.print();
 
-	//forEach(map1.begin(), map1.end(), print1);
+	MapNodeIterator<pair<string, int>> iter = map1.begin();
+	forEach(map1.begin(), map1.end(), print1);
 
 	cout << "constructing from iterators: " << endl;
 	UnorderedMap<string, int> map2(map1.begin(), map1.end());
@@ -107,6 +108,7 @@ int main()
 
 	std::vector<int> v{ 12, 11, 13, 5, 6, 7, 10, 11, 5, 12, 1, 14, 17 };
 
+	iter = iter;
         forEach(v.begin(), v.end(), [](int i){
 			std::cout << std::setw(3) << i;
 	});

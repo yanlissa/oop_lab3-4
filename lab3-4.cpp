@@ -57,7 +57,7 @@ int main()
 		cout << "d:" << map.at("d") << endl;
 	} catch (const std::out_of_range& oor) {
 		cout << "(std::out_of_range exception at ";
-		cout << oor.what() << ")\n";
+		cout << oor.what() << ")" << endl; 
 	}
 	map.print();
 	cout << "map.size(): " << map.size() << endl;
@@ -92,6 +92,13 @@ int main()
 
 	MapNodeIterator<pair<string, int>> iter = map1.begin();
 	forEach(map1.begin(), map1.end(), print1);
+
+	try {
+		map = map;
+	} catch (const std::logic_error& e) {
+		cout << "(std::logic_error exception at ";
+		cout << e.what() << ")" << endl; 
+	}
 
 	cout << "constructing from iterators: " << endl;
 	UnorderedMap<string, int> map2(map1.begin(), map1.end());

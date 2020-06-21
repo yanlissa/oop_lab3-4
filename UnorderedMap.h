@@ -165,8 +165,9 @@ public:
 
 	UnorderedMap& operator=(const UnorderedMap& m)
 	{
-	    // ПРОВЕРКА НА СОМОПРИСВАИВАНИЕ
-	    
+		if (&m == this) {
+			throw std::logic_error("UnorderedMap self assignment");
+		}
 		clear();
 		delete [] m_table;
 		copy(m);
@@ -174,8 +175,9 @@ public:
 
 	UnorderedMap& operator=(UnorderedMap&& m)
 	{
-	    // ПРОВЕРКА НА СОМОПРИСВАИВАНИЕ
-	    
+		if (&m == this) {
+			throw std::logic_error("UnorderedMap self assignment");
+		}
 		clear();
 		delete [] m_table;
 		move(std::move(m));

@@ -160,7 +160,7 @@ public:
 	~UnorderedMap()
 	{
 		clear();
-		delete m_table; // ЭТО ЖЕ ДИНАМИЧЕСКИЙ МАССИВ
+		delete [] m_table;
 	}
 
 	UnorderedMap& operator=(const UnorderedMap& m)
@@ -168,7 +168,7 @@ public:
 	    // ПРОВЕРКА НА СОМОПРИСВАИВАНИЕ
 	    
 		clear();
-		delete m_table; // ЭТО ЖЕ ДИНАМИЧЕСКИЙ МАССИВ
+		delete [] m_table;
 		copy(m);
 	}
 
@@ -177,7 +177,7 @@ public:
 	    // ПРОВЕРКА НА СОМОПРИСВАИВАНИЕ
 	    
 		clear();
-		delete m_table; // ЭТО ЖЕ ДИНАМИЧЕСКИЙ МАССИВ
+		delete [] m_table;
 		move(std::move(m));
 	}
 
@@ -331,7 +331,7 @@ public:
 		m_table_size = new_table_size;
 		m_size = 0;
 		node_base* p = m_before_begin.m_next;
-		delete m_table;                          // ЭТО МАССИВ
+		delete [] m_table;
 		m_before_begin.m_next = nullptr;
 		m_table = new node_base *[m_table_size]();
 		while (p) {

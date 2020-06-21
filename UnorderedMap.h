@@ -5,6 +5,13 @@
 #include <functional>
 #include "MapNode.h"
 
+
+// ЗАДАНИЕ НА ЗАЩИТУ
+// РЕАЛИЗОВАТЬ МЕТОД insert С ПЕРЕНОСОМ
+// РЕАЛИЗОВАТЬ МЕТОД emplace (https://en.cppreference.com/w/cpp/container/unordered_map/emplace)
+// В MAIN ПРИВЕСТИ ТЕСТИРОВАНИЕ МЕТОДА
+
+
 template<class Key,
 	 class T,
 	 class Hash = std::hash<Key>>
@@ -19,9 +26,10 @@ private:
 	Hash m_hash;
 	std::size_t m_table_size;
 	std::size_t m_size = 0;
-	float m_max_load_factor = 2.0;
+	float m_max_load_factor = 2.0; // ЭТО МНОГОВАТО - ДЖОССАТТИС ГОВОВОРИТ ЛУЧШЕ O.75-0.85 ПРИМЕРНО
 	node_base **m_table;
 	node_base m_before_begin;
+	
 private:
 	std::size_t table_index(std::size_t hash)
 	{
@@ -82,7 +90,7 @@ private:
 
 	bool overload()
 	{
-		return (float) m_size / m_table_size > m_max_load_factor;
+		return (float) m_size / m_table_size > m_max_load_factor;    // static_cast
 	}
 
 	void copy(const UnorderedMap& m)
@@ -129,7 +137,7 @@ public:
 		}
 	}
 
-	UnorderedMap(std::initializer_list<value_type> init, std::size_t table_size = 4)
+	UnorderedMap(std::initializer_list<value_type> init, std::size_t table_size = 4) // init ПО КОНСТАНТНОЙ ССЫЛКЕ
 		:m_hash(Hash()), m_table_size(table_size)
 	{
 		m_table = new node_base *[m_table_size]();
@@ -152,20 +160,24 @@ public:
 	~UnorderedMap()
 	{
 		clear();
-		delete m_table;
+		delete m_table; // ЭТО ЖЕ ДИНАМИЧЕСКИЙ МАССИВ
 	}
 
 	UnorderedMap& operator=(const UnorderedMap& m)
 	{
+	    // ПРОВЕРКА НА СОМОПРИСВАИВАНИЕ
+	    
 		clear();
-		delete m_table;
+		delete m_table; // ЭТО ЖЕ ДИНАМИЧЕСКИЙ МАССИВ
 		copy(m);
 	}
 
 	UnorderedMap& operator=(UnorderedMap&& m)
 	{
+	    // ПРОВЕРКА НА СОМОПРИСВАИВАНИЕ
+	    
 		clear();
-		delete m_table;
+		delete m_table; // ЭТО ЖЕ ДИНАМИЧЕСКИЙ МАССИВ
 		move(std::move(m));
 	}
 
@@ -177,7 +189,7 @@ public:
 		return find_node(k, t);
 	}
 
-	iterator insert(value_type v)
+	iterator insert(value_type v) // ПО КОНСТАНТНОЙ ССЫЛКЕ. ТУТ ЖЕ МОЖЕТ БЫТЬ КОПИРОВАНИЕ БОЛЬШОГО ОБЪЕКТА В ПРОТИВНОМ СЛУЧАЕ
 	{
 		Key k = v.first;
 		std::size_t h = m_hash(k);
@@ -192,6 +204,8 @@ public:
 		return insert_at_beginning(t, n);
 	}
 
+    // ХЕШ-ТАБЛИЦА МОЖЕТ БЫТЬ КОНСТАНТНЫМ ОБЪЕКТОМ. ПОЭТОМУ ДОЛЖНО БЫТЬ 2 ВЕРСИИ МЕТОДА:
+    // НЕКОНСТАНТНЫЙ (ДЛЯ ЗАПИСИ) И КОНСТАНТНЫЙ (ДЛЯ ЧТЕНИЯ)
 	T& operator[](const Key& k)
 	{
 		std::size_t h = m_hash(k);
@@ -209,6 +223,8 @@ public:
 		return insert_at_beginning(t, n)->m_value.second;
 	}
 
+    // ХЕШ-ТАБЛИЦА МОЖЕТ БЫТЬ КОНСТАНТНЫМ ОБЪЕКТОМ. ПОЭТОМУ ДОЛЖНО БЫТЬ 2 ВЕРСИИ МЕТОДА:
+    // НЕКОНСТАНТНЫЙ (ДЛЯ ЗАПИСИ) И КОНСТАНТНЫЙ (ДЛЯ ЧТЕНИЯ)
 	T& at(const Key& k)
 	{
 		std::size_t h = m_hash(k);
@@ -315,7 +331,7 @@ public:
 		m_table_size = new_table_size;
 		m_size = 0;
 		node_base* p = m_before_begin.m_next;
-		delete m_table;
+		delete m_table;                          // ЭТО МАССИВ
 		m_before_begin.m_next = nullptr;
 		m_table = new node_base *[m_table_size];
 		while (p) {
@@ -338,7 +354,7 @@ public:
 		node_type *n = static_cast<node_type*>(p);
 		while (n) {
 			value_type *v = &(n->m_value);
-			std::cout << "<" << v->first << ": " << v->second << "> " << n->m_hash << "\n";
+			std::cout << "<" << v->first << ": " << v->second << "> " << n->m_hash << "\n"; // ВМЕСТО \n ЛУЧШЕ STD::ENDL
 			n = n->next();
 		}
 	}

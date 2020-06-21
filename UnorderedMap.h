@@ -189,7 +189,7 @@ public:
 		return iterator(find_node(k, t));
 	}
 
-	iterator insert(value_type v) // ПО КОНСТАНТНОЙ ССЫЛКЕ. ТУТ ЖЕ МОЖЕТ БЫТЬ КОПИРОВАНИЕ БОЛЬШОГО ОБЪЕКТА В ПРОТИВНОМ СЛУЧАЕ
+	iterator insert(const value_type& v)
 	{
 		Key k = v.first;
 		std::size_t h = m_hash(k);

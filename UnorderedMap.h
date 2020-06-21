@@ -137,7 +137,7 @@ public:
 		}
 	}
 
-	UnorderedMap(std::initializer_list<value_type> init, std::size_t table_size = 4) // init ПО КОНСТАНТНОЙ ССЫЛКЕ
+	UnorderedMap(const std::initializer_list<value_type>& init, std::size_t table_size = 4) // init ПО КОНСТАНТНОЙ ССЫЛКЕ
 		:m_hash(Hash()), m_table_size(table_size)
 	{
 		m_table = new node_base *[m_table_size]();

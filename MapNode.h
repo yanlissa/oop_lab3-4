@@ -16,7 +16,9 @@ struct MapNode : MapNodeBase
 	Value m_value;
 	std::size_t m_hash;
 
-	MapNode(Value v, std::size_t h)
+    // ЖЕЛАТЕЛЬНО ДОБАВИТЬ КОНСТРУКТОР С ПЕРЕНОСОМ ДЛЯ Value
+
+	MapNode(Value v, std::size_t h) // ПЕРЕДАВТЬ V НУЖНО ПО КОНСТАНТНОЙ ССЫЛКЕ
 		:m_value(v), m_hash(h)
 	{}
 
@@ -34,6 +36,7 @@ struct MapNodeIterator
 
 	node_type* m_ptr;
 
+    // ЭТОТ КОНСТРУКТОР - КОНСТРУКТОР ПРЕОБРАЗОВАНИЯ. ПОЭТОМУ ЕГО ЛУЧШЕ ИСПОЛЬЗОВАТЬ С КЛЮЧЕВЫМ СЛОВОМ ДЛЯ ПРЕДОТВРАЩЕНИЯ НЕЯВНЫХ ПРЕОБРАЗОВАНИЙ
 	MapNodeIterator(node_type* ptr = nullptr)
 		:m_ptr(ptr)
 	{}
@@ -49,6 +52,7 @@ struct MapNodeIterator
 
 	MapNodeIterator& operator=(const MapNodeIterator& i)
 	{
+	    // ПРОВЕРКА НА СОМОПРИСВАИВАНИЕ
 		return m_ptr = i->m_ptr;
 	}
 

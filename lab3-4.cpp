@@ -106,6 +106,7 @@ int main()
 	map4.print();
 
 	std::vector<int> v({ 12, 11, 13, 5, 6, 7, 10, 11, 5, 12, 1, 14, 17 });
+	// ПО НОВОМУ СТАНДАРТУ () НЕ НУЖНЫ: std::vector<int> v{ 12, 11, 13, 5, 6, 7, 10, 11, 5, 12, 1, 14, 17 };
 
         forEach(v.begin(), v.end(), [](int i){
 			std::cout << std::setw(3) << i;

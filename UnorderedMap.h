@@ -26,7 +26,7 @@ private:
 	Hash m_hash;
 	std::size_t m_table_size;
 	std::size_t m_size = 0;
-	float m_max_load_factor = 2.0; // ЭТО МНОГОВАТО - ДЖОССАТТИС ГОВОВОРИТ ЛУЧШЕ O.75-0.85 ПРИМЕРНО
+	float m_max_load_factor = 0.75;
 	node_base **m_table;
 	node_base m_before_begin;
 	
@@ -333,7 +333,7 @@ public:
 		node_base* p = m_before_begin.m_next;
 		delete m_table;                          // ЭТО МАССИВ
 		m_before_begin.m_next = nullptr;
-		m_table = new node_base *[m_table_size];
+		m_table = new node_base *[m_table_size]();
 		while (p) {
 			node_type *n = static_cast<node_type*>(p);
 			p = p->m_next;

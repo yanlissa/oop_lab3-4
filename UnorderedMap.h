@@ -186,7 +186,7 @@ public:
 		std::size_t h = m_hash(k);
 		std::size_t t = table_index(h);
 
-		return find_node(k, t);
+		return iterator(find_node(k, t));
 	}
 
 	iterator insert(value_type v) // ПО КОНСТАНТНОЙ ССЫЛКЕ. ТУТ ЖЕ МОЖЕТ БЫТЬ КОПИРОВАНИЕ БОЛЬШОГО ОБЪЕКТА В ПРОТИВНОМ СЛУЧАЕ
@@ -197,11 +197,11 @@ public:
 
 		node_type *n = find_node(k, t);
 		if (n) {
-			return n;
+			return iterator(n);
 		}
 
 		n = new node_type(v, h);
-		return insert_at_beginning(t, n);
+		return iterator(insert_at_beginning(t, n));
 	}
 
     // ХЕШ-ТАБЛИЦА МОЖЕТ БЫТЬ КОНСТАНТНЫМ ОБЪЕКТОМ. ПОЭТОМУ ДОЛЖНО БЫТЬ 2 ВЕРСИИ МЕТОДА:
@@ -240,12 +240,12 @@ public:
 
 	iterator begin() const
 	{
-		return first_node();
+		return iterator(first_node());
 	}
 
 	iterator end() const
 	{
-		return nullptr;
+		return iterator(nullptr);
 	}
 
 	bool empty() const
@@ -281,7 +281,7 @@ public:
 		p->m_next = next;
 		delete n;
 		m_size--;
-		return next;
+		return iterator(next);
 	}
 
 	std::size_t erase(const Key& k)
@@ -294,7 +294,7 @@ public:
 			return 0;
 		}
 
-		erase(n);
+		erase(iterator(n));
 		return 1;
 	}
 

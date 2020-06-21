@@ -39,7 +39,7 @@ struct MapNodeIterator
 	node_type* m_ptr;
 
     // ЭТОТ КОНСТРУКТОР - КОНСТРУКТОР ПРЕОБРАЗОВАНИЯ. ПОЭТОМУ ЕГО ЛУЧШЕ ИСПОЛЬЗОВАТЬ С КЛЮЧЕВЫМ СЛОВОМ ДЛЯ ПРЕДОТВРАЩЕНИЯ НЕЯВНЫХ ПРЕОБРАЗОВАНИЙ
-	MapNodeIterator(node_type* ptr = nullptr)
+	explicit MapNodeIterator(node_type* ptr = nullptr)
 		:m_ptr(ptr)
 	{}
 

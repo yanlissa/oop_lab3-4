@@ -19,6 +19,11 @@ void print(int i)
         std::cout << std::setw(3) << i;
 }
 
+void print1(pair<string, int> MapE)
+{
+        std::cout << "<" << MapE.first << ": " << MapE.second << "> " << "\n";
+}
+
 int main()
 {
 	UnorderedMap<string, int> map;
@@ -84,6 +89,8 @@ int main()
 		map1.insert(p);
 	}
 	map1.print();
+
+	//forEach(map1.begin(), map1.end(), print1);
 
 	cout << "constructing from iterators: " << endl;
 	UnorderedMap<string, int> map2(map1.begin(), map1.end());

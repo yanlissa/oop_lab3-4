@@ -90,7 +90,7 @@ private:
 
 	bool overload()
 	{
-		return (float) m_size / m_table_size > m_max_load_factor;    // static_cast
+		return static_cast<float>(m_size) / m_table_size > m_max_load_factor;
 	}
 
 	void copy(const UnorderedMap& m)
@@ -324,7 +324,7 @@ public:
 
 	void reserve(std::size_t size)
 	{
-		std::size_t new_table_size = (float) size / m_max_load_factor;
+		std::size_t new_table_size = static_cast<float>(size) / m_max_load_factor;
 		if (new_table_size == m_table_size) {
 			return;
 		}

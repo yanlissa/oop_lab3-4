@@ -137,7 +137,7 @@ public:
 		}
 	}
 
-	UnorderedMap(const std::initializer_list<value_type>& init, std::size_t table_size = 4) // init ПО КОНСТАНТНОЙ ССЫЛКЕ
+	UnorderedMap(const std::initializer_list<value_type>& init, std::size_t table_size = 4)
 		:m_hash(Hash()), m_table_size(table_size)
 	{
 		m_table = new node_base *[m_table_size]();
@@ -204,8 +204,6 @@ public:
 		return iterator(insert_at_beginning(t, n));
 	}
 
-    // ХЕШ-ТАБЛИЦА МОЖЕТ БЫТЬ КОНСТАНТНЫМ ОБЪЕКТОМ. ПОЭТОМУ ДОЛЖНО БЫТЬ 2 ВЕРСИИ МЕТОДА:
-    // НЕКОНСТАНТНЫЙ (ДЛЯ ЗАПИСИ) И КОНСТАНТНЫЙ (ДЛЯ ЧТЕНИЯ)
 	T& operator[](const Key& k)
 	{
 		std::size_t h = m_hash(k);
@@ -223,9 +221,33 @@ public:
 		return insert_at_beginning(t, n)->m_value.second;
 	}
 
-    // ХЕШ-ТАБЛИЦА МОЖЕТ БЫТЬ КОНСТАНТНЫМ ОБЪЕКТОМ. ПОЭТОМУ ДОЛЖНО БЫТЬ 2 ВЕРСИИ МЕТОДА:
-    // НЕКОНСТАНТНЫЙ (ДЛЯ ЗАПИСИ) И КОНСТАНТНЫЙ (ДЛЯ ЧТЕНИЯ)
+	T& operator[](const Key& k) const
+	{
+		std::size_t h = m_hash(k);
+		std::size_t t = table_index(h);
+
+		node_type *n = find_node(k, t);
+		if (!n) {
+			throw std::out_of_range("UnorderedMap::[]");
+		}
+
+		return n->m_value.second;
+	}
+
 	T& at(const Key& k)
+	{
+		std::size_t h = m_hash(k);
+		std::size_t t = table_index(h);
+
+		node_type *n = find_node(k, t);
+		if (!n) {
+			throw std::out_of_range("UnorderedMap::at");
+		}
+
+		return n->m_value.second;
+	}
+
+	const T& at(const Key& k) const
 	{
 		std::size_t h = m_hash(k);
 		std::size_t t = table_index(h);

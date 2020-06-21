@@ -354,7 +354,8 @@ public:
 		node_type *n = static_cast<node_type*>(p);
 		while (n) {
 			value_type *v = &(n->m_value);
-			std::cout << "<" << v->first << ": " << v->second << "> " << n->m_hash << "\n"; // ВМЕСТО \n ЛУЧШЕ STD::ENDL
+			std::cout << "<" << v->first << ": " << v->second << "> ";
+			std::cout << n->m_hash << std::endl;
 			n = n->next();
 		}
 	}

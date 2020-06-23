@@ -180,5 +180,28 @@ int main()
 			std::cout << std::endl;
 	});
 
+	std::cout << std::endl;
+	std::vector<Student> cont_3;
+        forEach(cont_1.begin(), cont_1.end(), [&cont_3](const std::pair<std::string, Student>& p){
+			cont_3.insert(cont_3.end(), p.second);
+	});
+        forEach(cont_3.begin(), cont_3.end(), [](const Student& st){
+			std::cout << st.m_name;
+			std::cout << " (" << st.m_group << "): ";
+			std::cout << st.m_average_rating;
+			std::cout << std::endl;
+	});
+
+	std::cout << std::endl;
+	Sort(cont_3.begin(), cont_3.end(), [](const Student& p1, const Student& p2){
+		return p1.m_name < p2.m_name;
+	});
+        forEach(cont_3.begin(), cont_3.end(), [](const Student& st){
+			std::cout << st.m_name;
+			std::cout << " (" << st.m_group << "): ";
+			std::cout << st.m_average_rating;
+			std::cout << std::endl;
+	});
+
 	return 0;
 }

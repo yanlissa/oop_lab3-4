@@ -83,3 +83,32 @@ void Sort ( BidirectionalIterator first, BidirectionalIterator last )
 	pivot++;
 	Sort(pivot, last);
 }
+
+template <class BidirectionalIterator, class BinaryPredicate>
+BidirectionalIterator Partition ( BidirectionalIterator first,
+		BidirectionalIterator last,
+		BinaryPredicate lt_pred )
+{
+	BidirectionalIterator pivot = last;
+	pivot--;
+	BidirectionalIterator p_index = first;
+	while (first != last) {
+		if (lt_pred(*first, *pivot)) {
+			std::swap(*first, *p_index);
+			p_index++;
+		}
+		first++;
+	}
+	std::swap(*pivot, *p_index);
+	return p_index;
+}
+
+template <class BidirectionalIterator, class BinaryPredicate>
+void Sort ( BidirectionalIterator first, BidirectionalIterator last, BinaryPredicate lt_pred )
+{
+	if (first==last) return;
+	BidirectionalIterator pivot = Partition(first, last, lt_pred);
+	Sort(first, pivot, lt_pred);
+	pivot++;
+	Sort(pivot, last, lt_pred);
+}

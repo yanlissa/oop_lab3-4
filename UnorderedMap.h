@@ -305,6 +305,9 @@ public:
 			std::size_t next_t = table_index(next->m_hash);
 			if (t != next_t) {
 				m_table[next_t] = p;
+				if (is_first) {
+					m_table[t] = nullptr;
+				}
 			}
 		} else {
 			if (is_first) {

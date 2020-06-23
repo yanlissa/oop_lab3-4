@@ -146,5 +146,30 @@ int main()
 			std::cout << std::endl;
 	});
 
+	Student st6{"Student6", "group3", 5.0};
+	Student st7{"Student7", "group3", 4.0};
+	Student st8{"Student8", "group4", 3.0};
+
+	UnorderedMap<std::string, Student> cont_2;
+	std::cout << "cont_2 is " << (cont_2.empty() ? "" : "not ") << "empty" << std::endl;
+        forEach(cont_2.begin(), cont_2.end(), [](const std::pair<std::string, Student>& p){
+			std::cout << p.second.m_name;
+			std::cout << " (" << p.second.m_group << "): ";
+			std::cout << p.second.m_average_rating;
+			std::cout << std::endl;
+	});
+
+	cont_2.insert(std::pair<std::string, Student>(st6.m_name, st6));
+	cont_2.insert(std::pair<std::string, Student>(st7.m_name, st7));
+	cont_2.insert(std::pair<std::string, Student>(st7.m_name, st7));
+
+	std::cout << "cont_2 is " << (cont_2.empty() ? "" : "not ") << "empty" << std::endl;
+        forEach(cont_2.begin(), cont_2.end(), [](const std::pair<std::string, Student>& p){
+			std::cout << p.second.m_name;
+			std::cout << " (" << p.second.m_group << "): ";
+			std::cout << p.second.m_average_rating;
+			std::cout << std::endl;
+	});
+
 	return 0;
 }

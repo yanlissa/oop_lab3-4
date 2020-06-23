@@ -8,6 +8,12 @@
 
 using namespace std;
 
+struct Student
+{
+	std::string m_name;
+	std::string m_group;
+	double m_average_rating;
+};
 
 UnorderedMap<string, int> generate_map()
 {
@@ -125,6 +131,8 @@ int main()
 
         forEach(v.begin(), v.end(), print);
         std::cout << std::endl;
+
+	UnorderedMap<std::string, Student> cont_1 = {{"Янович Елизавета", {"Янович Елизавета", "", 5.0}}};
 
 	return 0;
 }

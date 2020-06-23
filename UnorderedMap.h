@@ -171,6 +171,7 @@ public:
 		clear();
 		delete [] m_table;
 		copy(m);
+		return *this;
 	}
 
 	UnorderedMap& operator=(UnorderedMap&& m)

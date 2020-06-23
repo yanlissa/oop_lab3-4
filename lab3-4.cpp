@@ -216,16 +216,25 @@ int main()
 		std::cout << "student not found" << std::endl;
 	}
 
-	iter1 =	findIf(cont_1.begin(), cont_1.end(), [](const std::pair<std::string, Student>& p){
+	MapNodeIterator<std::pair<std::string, Student>> iter2 =
+		findIf(cont_1.begin(), cont_1.end(), [](const std::pair<std::string, Student>& p){
 			return p.second.m_average_rating > 5.1 && p.second.m_average_rating < 5.5;
 	});
 
-	if (iter1 != cont_1.end()) {
-		std::cout << iter1->second.m_name << ": ";
-		std::cout << iter1->second.m_average_rating << std::endl;
+	if (iter2 != cont_1.end()) {
+		std::cout << iter2->second.m_name << ": ";
+		std::cout << iter2->second.m_average_rating << std::endl;
 	} else {
 		std::cout << "student not found" << std::endl;
 	}
 
+	std::cout << std::endl;
+	iter1->second.m_group = std::string("new group");
+        forEach(cont_1.begin(), cont_1.end(), [](const std::pair<std::string, Student>& p){
+			std::cout << p.second.m_name;
+			std::cout << " (" << p.second.m_group << "): ";
+			std::cout << p.second.m_average_rating;
+			std::cout << std::endl;
+	});
 	return 0;
 }

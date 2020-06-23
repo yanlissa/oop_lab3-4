@@ -20,7 +20,7 @@ struct MapNode : MapNodeBase
 		:m_value(v), m_hash(h)
 	{}
 
-	MapNode(Value&& v, std::size_t h)
+	MapNode(std::size_t h, Value&& v)
 		:m_value(std::move(v)), m_hash(h)
 	{}
 

@@ -5,13 +5,6 @@
 #include <functional>
 #include "MapNode.h"
 
-
-// ЗАДАНИЕ НА ЗАЩИТУ
-// РЕАЛИЗОВАТЬ МЕТОД insert С ПЕРЕНОСОМ
-// РЕАЛИЗОВАТЬ МЕТОД emplace (https://en.cppreference.com/w/cpp/container/unordered_map/emplace)
-// В MAIN ПРИВЕСТИ ТЕСТИРОВАНИЕ МЕТОДА
-
-
 template<class Key,
 	 class T,
 	 class Hash = std::hash<Key>>
@@ -204,6 +197,21 @@ public:
 		}
 
 		n = new node_type(v, h);
+		return iterator(insert_at_beginning(t, n));
+	}
+
+	iterator insert(value_type&& v)
+	{
+		Key k = v.first;
+		std::size_t h = m_hash(k);
+		std::size_t t = table_index(h);
+
+		node_type *n = find_node(k, t);
+		if (n) {
+			return iterator(n);
+		}
+
+		n = new node_type(h, std::move(v));
 		return iterator(insert_at_beginning(t, n));
 	}
 

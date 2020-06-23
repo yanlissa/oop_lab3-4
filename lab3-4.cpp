@@ -203,5 +203,29 @@ int main()
 			std::cout << std::endl;
 	});
 
+	std::cout << std::endl;
+	MapNodeIterator<std::pair<std::string, Student>> iter1 =
+		findIf(cont_1.begin(), cont_1.end(), [](const std::pair<std::string, Student>& p){
+			return p.second.m_average_rating > 3.5 && p.second.m_average_rating < 4.5;
+	});
+
+	if (iter1 != cont_1.end()) {
+		std::cout << iter1->second.m_name << ": ";
+		std::cout << iter1->second.m_average_rating << std::endl;
+	} else {
+		std::cout << "student not found" << std::endl;
+	}
+
+	iter1 =	findIf(cont_1.begin(), cont_1.end(), [](const std::pair<std::string, Student>& p){
+			return p.second.m_average_rating > 5.1 && p.second.m_average_rating < 5.5;
+	});
+
+	if (iter1 != cont_1.end()) {
+		std::cout << iter1->second.m_name << ": ";
+		std::cout << iter1->second.m_average_rating << std::endl;
+	} else {
+		std::cout << "student not found" << std::endl;
+	}
+
 	return 0;
 }

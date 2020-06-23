@@ -161,10 +161,19 @@ int main()
 
 	cont_2.insert(std::pair<std::string, Student>(st6.m_name, st6));
 	cont_2.insert(std::pair<std::string, Student>(st7.m_name, st7));
-	cont_2.insert(std::pair<std::string, Student>(st7.m_name, st7));
+	cont_2.insert(std::pair<std::string, Student>(st8.m_name, st8));
 
 	std::cout << "cont_2 is " << (cont_2.empty() ? "" : "not ") << "empty" << std::endl;
         forEach(cont_2.begin(), cont_2.end(), [](const std::pair<std::string, Student>& p){
+			std::cout << p.second.m_name;
+			std::cout << " (" << p.second.m_group << "): ";
+			std::cout << p.second.m_average_rating;
+			std::cout << std::endl;
+	});
+
+	std::cout << std::endl;
+	cont_1.insert(cont_2.begin(), cont_2.end());
+        forEach(cont_1.begin(), cont_1.end(), [](const std::pair<std::string, Student>& p){
 			std::cout << p.second.m_name;
 			std::cout << " (" << p.second.m_group << "): ";
 			std::cout << p.second.m_average_rating;

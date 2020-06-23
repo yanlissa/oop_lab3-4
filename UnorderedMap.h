@@ -207,6 +207,14 @@ public:
 		return iterator(insert_at_beginning(t, n));
 	}
 
+	template<class InputIt>
+	void insert(InputIt first, InputIt last)
+	{
+		for(InputIt i = first; i != last; i++) {
+			insert(*i);
+		}
+	}
+
 	T& operator[](const Key& k)
 	{
 		std::size_t h = m_hash(k);

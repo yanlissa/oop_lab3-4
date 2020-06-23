@@ -132,7 +132,19 @@ int main()
         forEach(v.begin(), v.end(), print);
         std::cout << std::endl;
 
-	UnorderedMap<std::string, Student> cont_1 = {{"Янович Елизавета", {"Янович Елизавета", "", 5.0}}};
+	UnorderedMap<std::string, Student> cont_1 = {
+		{"Student1", {"Student1", "group1", 5.0}},
+		{"Student2", {"Student2", "group1", 4.9}},
+		{"Student3", {"Student3", "group1", 4.9}},
+		{"Student4", {"Student4", "group1", 4.8}},
+		{"Student5", {"Student5", "group2", 4.8}}
+	};
+        forEach(cont_1.begin(), cont_1.end(), [](const std::pair<std::string, Student>& p){
+			std::cout << p.second.m_name;
+			std::cout << " (" << p.second.m_group << "): ";
+			std::cout << p.second.m_average_rating;
+			std::cout << std::endl;
+	});
 
 	return 0;
 }
